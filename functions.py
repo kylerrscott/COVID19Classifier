@@ -5,11 +5,19 @@ import cv2
 
 def read_resized_image(filename, new_width):
     
+    grayscale = True
+    
     #read in image
     original_image = cv2.imread(filename)
+    if grayscale:
+        original_image = cv2.imread(filename, cv2.IMREAD_GRAYSCALE)
     
     #determine smallest side
-    height, width, channels = original_image.shape
+    if grayscale:
+        height, width = original_image.shape
+    else:
+        height, width, channels = original_image.shape
+        
     smallest_side = min(height, width)
     
     #crop to that size
